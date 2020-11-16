@@ -1,2 +1,2 @@
-# Advanced-Software-Engineering-CS352
+# Advanced Software Engineering CS352
 This repo for ASWE Project
