@@ -10,7 +10,7 @@ public class Website {
 	public static ArrayList<User> users;
 	public static CRUD crud;
 	public static Scanner inputMain = new Scanner(System.in);
-
+	public static User currentUser = new User();
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -25,10 +25,10 @@ public class Website {
 		crud.notifications.add(new Notification("Welcome", "Welcome to our booking system", "EN", "Email", "0", "0"));
 
 		crud.notifications.add(new Notification("Book Item",
-				"Dear ? , your booking of the @ is confirmed. thanks for using our store :) ", "EN", "Email", "2",
+				"Dear ? , your booking of the * is confirmed. thanks for using our store :) ", "EN", "Email", "2",
 				"2"));
 		crud.notifications.add(new Notification("Cancel booking",
-				"Dear ? , your booking of the @ is canceled. thanks for using our store :)", "EN", "Email", "2", "2"));
+				"Dear ? , your booking of the * is canceled. thanks for using our store :)", "EN", "Email", "2", "2"));
 		crud.notifications.add(
 				new Notification("Feedback", "Please write your feedback about our store", "EN", "Email", "0", "1"));
 
@@ -50,18 +50,15 @@ public class Website {
 		System.out.println("1. SignUp");
 		System.out.println("2. Login");
 
-
-
 		do {
-			
-			choice = inputMain.nextLine();
-			//inputMain.nextLine();
-			
-			
+
+			choice = inputMain.next();
+			inputMain.nextLine();
+
 			if (choice.equals("1")) {
 				signUp();
 			} else if (choice.equals("2")) {
-				
+
 				login();
 			} else {
 				System.out.println("Please choose 1 or 2 only!");
@@ -69,11 +66,9 @@ public class Website {
 
 		} while (!choice.equals("1") && !choice.equals("2"));
 
-		
 	}
 
 	public static void signUp() {
-		//Scanner signupInput = new Scanner(System.in);
 		User signUpUser = new User();
 		String currentEmail = "";
 		System.out.println("--------------------------- SignUp -----------------------------");
@@ -99,10 +94,9 @@ public class Website {
 		}
 
 		users.add(signUpUser);
+		currentUser = signUpUser;
 		System.out.println("Account created successfully.");
-		//signupInput.close();
 		// Confirmation mail
-		//Scanner scanners = new Scanner(System.in);
 		String verify = "";
 		do {
 			System.out.println(crud.notifications.get(0).getContent());
@@ -121,7 +115,7 @@ public class Website {
 
 				}
 				System.out.println("Account verified successfully.");
-				userMenu();
+				userMenu(signUpUser);
 			} else {
 				System.out.println("Account not verified.");
 				System.out.println("\n\n");
@@ -132,28 +126,25 @@ public class Website {
 
 	public static void login() {
 		String check = "";
-		//Scanner loginInput = new Scanner(System.in);
 
 		do {
 
 			System.out.println("--------------------------- Login -----------------------------");
 			System.out.print("Enter your email: ");
 			String email = inputMain.nextLine();
-			//inputMain.nextLine();
 			System.out.print("Enter your password: ");
 			String password = inputMain.nextLine();
-			//inputMain.nextLine();
 			int flagy = 0;
 			for (int i = 0; i < users.size(); i++) {
 
 				if (email.equalsIgnoreCase(users.get(i).getEmail())
 						&& password.equalsIgnoreCase(users.get(i).getPassword())) {
-					
+
 					flagy++;
-					
+
 					if (users.get(i).getRole().equals("user")) {
 						users.get(i).setStatus(true);
-						userMenu();
+						userMenu(users.get(i));
 						break;
 					} else {
 						users.get(i).setStatus(true);
@@ -163,67 +154,74 @@ public class Website {
 
 				}
 			}
-			
-			if(flagy==0) {
-				do {
-					//Scanner scanner = new Scanner(System.in);
 
+			if (flagy == 0) {
+				do {
 					System.out.println("Enter 1 to renter - 0 to create new password");
 
 					check = inputMain.nextLine();
 					if (check.equals("0")) {
 						// Forget Password
 
-					}else {
-						
-						mainMenu();
-						
-					}
-					//scanner.close();
+						System.out.println(crud.notifications.get(1).getContent());
+						String newPassword = inputMain.nextLine();
+						System.out.println(newPassword);
+						currentUser.setPassword(newPassword);
+						System.out.println("Password saved.");
+						check = "1";
 
+					} else {
+
+						mainMenu();
+
+					}
 				} while (!check.equals("0") || !check.equals("1"));
 			}
-			
-			//loginInput.close();
-
 		} while (check.equals("1"));
 
 	}
 
-	public static void userMenu() {
-		//Scanner scanner = new Scanner(System.in);
+	public static void userMenu(User user) {
 
 		// Welcome message notification **************
 
-		System.out.println("Select one feature: ");
-		// Print the array list -> subject from the notification list
+		crud.notifications.get(0).getContent();
 
-		int i;
-		for (i = 0; i < crud.notifications.size(); i++) {
+		String check = "";
 
-			System.out.println((i + 1) + ". " + crud.notifications.get(i).getSubject());
+		do {
 
-		}
-		System.out.println(i + ". Logout");
+			System.out.println("Select one feature: ");
+			// Print the array list -> subject from the notification list
 
-		int input = inputMain.nextInt();
-		input--;
+			int i;
+			for (i = 3; i < crud.notifications.size(); i++) {
 
-		if (input == crud.notifications.size()) {
+				System.out.println((i - 2) + ". " + crud.notifications.get(i).getSubject());
 
-			// Logout
+			}
+			System.out.println((i - 2) + ". Logout");
 
-		} else {
+			int input = inputMain.nextInt();
+			input = input + 2;
 
-			for (int j = 0; j < crud.notifications.size(); j++) {
-				if (input == j) {
+			if (input == crud.notifications.size()) {
 
-					// Call read from CRUD with the index(j) of the notification
+				// Logout
+				user.setStatus(false);
+				mainMenu();
 
-				}
+			} else {
+
+				crud.read(input, user, inputMain);
+
 			}
 
-		}
+			System.out.println("To choose again type 'yes'");
+			check = inputMain.next();
+			inputMain.nextLine();
+
+		} while (check.equalsIgnoreCase("yes"));
 
 	}
 
@@ -233,7 +231,6 @@ public class Website {
 		System.out.println("2. Update an existing notification");
 		System.out.println("3. Delete a notification");
 		System.out.println("4. Logout");
-		//Scanner scanner = new Scanner(System.in);
 		int input;
 		do {
 
@@ -269,7 +266,6 @@ public class Website {
 			}
 
 		} while (input < 1 || input > 4);
-		//scanner.close();
 	}
 
 	public static ArrayList<User> getUsers() {

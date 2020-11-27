@@ -14,7 +14,6 @@ public class CRUD {
 	public static void create(Scanner scanner) {
 
 		Notification notification = new Notification();
-		//Scanner scanner = new Scanner(System.in);
 		System.out.print("Enter subject: ");
 		notification.setSubject(scanner.nextLine());
 		System.out.println("Enter number of inputs for that notification: ");
@@ -27,7 +26,7 @@ public class CRUD {
 		System.out.println("username: ?");
 		System.out.println("email: $");
 		System.out.println("phone: #");
-		System.out.println("For any other object like item, type '@1' or '@2' and so on");
+		System.out.println("For any other object like item, type '*'");
 		System.out.print("Enter content: ");
 		notification.setContent(scanner.nextLine());
 		System.out.print("Enter language: ");
@@ -35,7 +34,7 @@ public class CRUD {
 		System.out.print("Enter channel: ");
 		notification.setChannel(scanner.nextLine());
 
-		int flag =0;
+		int flag = 0;
 		for (int i = 0; i < notifications.size(); i++) {
 			if (notification.getSubject().equalsIgnoreCase(notifications.get(i).getSubject())) {
 				System.out.println("This notification is already exists in the system.");
@@ -44,24 +43,73 @@ public class CRUD {
 			}
 		}
 
-		if(flag==0) {
+		if (flag == 0) {
 			notifications.add(notification);
 			System.out.println("Notification created successfully.");
 		}
 
-		//scanner.close();
-
 	}
 
-	public static void read() {
+	public static void read(int index, User user, Scanner scanner) {
+
+		String notificationTemplate = notifications.get(index).getContent();
+
+		int inputs = Integer.valueOf(notifications.get(index).getInputs());
+		int placeholders = Integer.valueOf(notifications.get(index).getPlaceholder());
+
+		for (int i = 0; i < notificationTemplate.length(); i++) {
+
+			if (notificationTemplate.charAt(i) == '?') {
+				notificationTemplate = notificationTemplate.replace("?", user.getUsername());
+				placeholders--;
+				inputs--;
+			} else if (notificationTemplate.charAt(i) == '$') {
+				notificationTemplate = notificationTemplate.replace("$", user.getEmail());
+				placeholders--;
+				inputs--;
+			} else if (notificationTemplate.charAt(i) == '#') {
+				notificationTemplate = notificationTemplate.replace("#", user.getPhone());
+				placeholders--;
+				inputs--;
+			} else if (notificationTemplate.charAt(i) == '*') {
+
+				int pVar = placeholders;
+				for (int j = 0; j < pVar; j++) {
+
+					System.out.print("Enter placeholder " + (j + 1) + " : ");
+					scanner.nextLine();
+					String pInput = scanner.nextLine();
+					notificationTemplate = notificationTemplate.replace("*", pInput);
+
+					placeholders--;
+					inputs--;
+
+				}
+
+			}
+
+		}
+
+		if (placeholders == 0 && inputs == 0) {
+			System.out.println(notificationTemplate);
+		} else {
+
+			System.out.println(notificationTemplate);
+
+			for (int j = 0; j < inputs; j++) {
+
+				String myInput = scanner.next();
+				scanner.nextLine();
+
+			}
+
+		}
 
 	}
 
 	public static void update(Scanner scanner) {
 
 		Notification notification = new Notification();
-		//Scanner scanner = new Scanner(System.in);
-
 		System.out.println("Enter the subject for the notification you want to update: ");
 		String subInput = scanner.nextLine();
 		int f = 0;
@@ -92,8 +140,6 @@ public class CRUD {
 	}
 
 	public static void delete(Scanner scanner) {
-
-		//Scanner scanner = new Scanner(System.in);
 		String input = "";
 		System.out.print("Enter the notification subject to delete: ");
 		input = scanner.nextLine();

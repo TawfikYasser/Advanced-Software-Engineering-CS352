@@ -2,10 +2,10 @@ package main;
 
 public class Notification {
 
-	
 	String subject, content, language, channel, placeholder, inputs;
-	
-	public Notification() {}
+
+	public Notification() {
+	}
 
 	public Notification(String subject, String content, String language, String channel, String placeholder,
 			String inputs) {
@@ -65,10 +65,5 @@ public class Notification {
 	public void setInputs(String inputs) {
 		this.inputs = inputs;
 	}
-	
-	
-	
 
-
-	
 }
