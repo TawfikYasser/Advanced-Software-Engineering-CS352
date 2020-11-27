@@ -116,9 +116,12 @@ public class CRUD {
 
 		for (int i = 0; i < notifications.size(); i++) {
 
-			if (notification.getSubject().equalsIgnoreCase(notifications.get(i).getSubject())) {
+			if (subInput.equals(notifications.get(i).getSubject())) {
 				f++;
-
+				System.out.println("Enter number of inputs for that notification: ");
+				notifications.get(i).setInputs(scanner.nextLine());
+				System.out.println("Enter number of placeholders for that notification: ");
+				notifications.get(i).setPlaceholder(scanner.nextLine());
 				System.out.println("Hint: In content:");
 				System.out.println("-------------------");
 				System.out.println("username: ?");

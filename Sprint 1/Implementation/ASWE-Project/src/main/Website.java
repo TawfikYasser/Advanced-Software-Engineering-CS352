@@ -46,7 +46,7 @@ public class Website {
 
 		String choice = "";
 
-		System.out.println("Welcome to the booking system ----------------");
+		System.out.println("---------------- Welcome to the booking system ----------------");
 		System.out.println("1. SignUp");
 		System.out.println("2. Login");
 
@@ -118,7 +118,7 @@ public class Website {
 				userMenu(signUpUser);
 			} else {
 				System.out.println("Account not verified.");
-				System.out.println("\n\n");
+
 			}
 		} while (!verify.equals("v"));
 
@@ -159,13 +159,13 @@ public class Website {
 				do {
 					System.out.println("Enter 1 to renter - 0 to create new password");
 
-					check = inputMain.nextLine();
+					check = inputMain.next();
+					inputMain.nextLine();
 					if (check.equals("0")) {
 						// Forget Password
 
 						System.out.println(crud.notifications.get(1).getContent());
 						String newPassword = inputMain.nextLine();
-						System.out.println(newPassword);
 						currentUser.setPassword(newPassword);
 						System.out.println("Password saved.");
 						check = "1";
@@ -220,6 +220,9 @@ public class Website {
 			System.out.println("To choose again type 'yes'");
 			check = inputMain.next();
 			inputMain.nextLine();
+			if (!check.equalsIgnoreCase("yes")) {
+				mainMenu();
+			}
 
 		} while (check.equalsIgnoreCase("yes"));
 
