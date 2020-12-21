@@ -1,6 +1,9 @@
 # Advanced Software Engineering CS352
+
 This repo for ASWE Project
+
 # Project overview
+
 Typically softwares are NOT one big block of code, that have all the features that the software provides, instead, usually softwares are broken down into sub-systems/sub-components/sub-modules, and these parts are even broken down into even smaller components/classes. 
 
 The project will NOT be an entire software system, but rather a component within the system 
@@ -20,6 +23,12 @@ this would be the template , but when the system "sends" it to the user "hassan"
 " Dear hassan, your booking of the item mobile charger is confirmed, thanks for using our store :) "
 
 So, the "management" of those notifications templates, their subjects, content, available languages, available channels ( email , sms ) , and placeholders would be the focus of this part.
+
+# Sprint 2 -> Queuing / Handling
+
+When your "notifications module" gets invoked to send a "notification" to an email address or phone number, it would be a good design decision to NOT actually send the notification within the scope of this "invocation", because this would be mean you will hang the "invoker" till the actual message is sent. So what should we do ? you should implement a "notifications Queue" , where you insert "notifications" that ARE TO BE SENT and that's it, your job is done, and the invoker doesn't have  to wait for anything.
+
+This part would be the responsible of actual de-queue-ing from the "ready-to-send notifications queue", and send "handle/send" it , as well as handling  the unsuccessfully sent notifications.
 
 
 Trello link: https://trello.com/b/1jrTjl7a/advanced-swe
