@@ -1,3 +1,0 @@
-Team scrum wrok displayed on:
-* Trello: https://trello.com/b/1jrTjl7a
-* GitHub: https://github.com/TawfikYasser/Advanced-Software-Engineering-CS352
