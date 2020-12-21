@@ -31,4 +31,6 @@ When your "notifications module" gets invoked to send a "notification" to an ema
 This part would be the responsible of actual de-queue-ing from the "ready-to-send notifications queue", and send "handle/send" it , as well as handling  the unsuccessfully sent notifications.
 
 
-Trello link: https://trello.com/b/1jrTjl7a/advanced-swe
+###### Important Links
+* Trello link: https://trello.com/b/1jrTjl7a/advanced-swe
+* Creately link: https://app.creately.com/diagram/bxT0yfC2CbO/edit
