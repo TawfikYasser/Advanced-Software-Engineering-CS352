@@ -23,7 +23,7 @@ public class NotificationManagementApplication {
     public static ArrayList<User> users;
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-
+        //Main function of the program
         initDefaultData();
         mainMenu();
         SpringApplication.run(NotificationManagementApplication.class, args);
