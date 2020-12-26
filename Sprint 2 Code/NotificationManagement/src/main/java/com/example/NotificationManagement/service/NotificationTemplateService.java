@@ -4,6 +4,7 @@ import com.example.NotificationManagement.dao.NotificationDataAccessLayer;
 import com.example.NotificationManagement.model.NotificationTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class NotificationTemplateService {
     private final NotificationDataAccessLayer notificationDataAccessLayer;
 
     @Autowired
-    public NotificationTemplateService(@Qualifier("MemoryDB") NotificationDataAccessLayer notificationDataAccessLayer) {
+    public NotificationTemplateService(@Qualifier("Memory") NotificationDataAccessLayer notificationDataAccessLayer) {
         this.notificationDataAccessLayer = notificationDataAccessLayer;
     }
 

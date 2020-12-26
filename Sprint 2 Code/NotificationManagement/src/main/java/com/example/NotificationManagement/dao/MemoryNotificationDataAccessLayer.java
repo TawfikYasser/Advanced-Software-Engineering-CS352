@@ -1,6 +1,9 @@
 package com.example.NotificationManagement.dao;
 
 import com.example.NotificationManagement.model.NotificationTemplate;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -8,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Repository("MemoryDB")
+@Repository("Memory")
 public class MemoryNotificationDataAccessLayer implements NotificationDataAccessLayer{
 
 
