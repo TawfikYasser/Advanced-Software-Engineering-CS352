@@ -1,10 +1,13 @@
 package com.example.NotificationManagement;
 
+import com.example.NotificationManagement.api.NotificationQueueController;
 import com.example.NotificationManagement.api.NotificationTemplateController;
 import com.example.NotificationManagement.dao.DBNotificationDataAccessLayer;
 import com.example.NotificationManagement.dao.MemoryNotificationDataAccessLayer;
+import com.example.NotificationManagement.dao.SMSNotificationQueueDataAccessLayer;
 import com.example.NotificationManagement.model.NotificationTemplate;
 import com.example.NotificationManagement.model.User;
+import com.example.NotificationManagement.service.NotificationQueueService;
 import com.example.NotificationManagement.service.NotificationTemplateService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -245,20 +248,25 @@ public class NotificationManagementApplication {
                 case 1: {
                     // Call create function
 
-                    NotificationTemplateController notificationTemplateControllerDB
-                            = new NotificationTemplateController(new NotificationTemplateService(new DBNotificationDataAccessLayer()));
-                    notificationTemplateControllerDB.createNotification(new NotificationTemplate(UUID.randomUUID(),
-                            "Hello", "Hello World!", "Spanish", "Email"));
+                    NotificationQueueController notificationQueueController =
+                            new NotificationQueueController(new NotificationQueueService(new SMSNotificationQueueDataAccessLayer()));
+                    notificationQueueController.insertNotificationInQueue("Google","Goooooogle","SMS");
 
-                    NotificationTemplateController notificationTemplateControllerMemory
-                            = new NotificationTemplateController(new NotificationTemplateService(new MemoryNotificationDataAccessLayer()));
-                    notificationTemplateControllerMemory.createNotification(new NotificationTemplate(UUID.randomUUID(),
-                            "Hello", "Hello World!", "Arabic", "Email"));
-                    NotificationTemplateController notificationTemplateControllerMemory2
-                            = new NotificationTemplateController(new NotificationTemplateService(new MemoryNotificationDataAccessLayer()));
-                    notificationTemplateControllerMemory2.createNotification(new NotificationTemplate(UUID.randomUUID(),
-                            "Hello 2", "Hello World! 2", "Arabic 2", "Email 2"));
-                    break;
+
+//                    NotificationTemplateController notificationTemplateControllerDB
+//                            = new NotificationTemplateController(new NotificationTemplateService(new DBNotificationDataAccessLayer()));
+//                    notificationTemplateControllerDB.createNotification(new NotificationTemplate(UUID.randomUUID(),
+//                            "Hello", "Hello World!", "Spanish", "Email"));
+//
+//                    NotificationTemplateController notificationTemplateControllerMemory
+//                            = new NotificationTemplateController(new NotificationTemplateService(new MemoryNotificationDataAccessLayer()));
+//                    notificationTemplateControllerMemory.createNotification(new NotificationTemplate(UUID.randomUUID(),
+//                            "Hello", "Hello World!", "Arabic", "Email"));
+//                    NotificationTemplateController notificationTemplateControllerMemory2
+//                            = new NotificationTemplateController(new NotificationTemplateService(new MemoryNotificationDataAccessLayer()));
+//                    notificationTemplateControllerMemory2.createNotification(new NotificationTemplate(UUID.randomUUID(),
+//                            "Hello 2", "Hello World! 2", "Arabic 2", "Email 2"));
+                        break;
                 }
                 case 2: {
                     // Call update function
