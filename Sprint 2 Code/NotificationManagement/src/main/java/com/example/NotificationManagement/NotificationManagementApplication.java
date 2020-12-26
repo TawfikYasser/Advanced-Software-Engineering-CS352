@@ -1,11 +1,17 @@
 package com.example.NotificationManagement;
 
+import com.example.NotificationManagement.api.EmailNotificationQueueController;
 import com.example.NotificationManagement.api.NotificationTemplateController;
+import com.example.NotificationManagement.api.SMSNotificationQueueController;
 import com.example.NotificationManagement.dao.DBNotificationDataAccessLayer;
-import com.example.NotificationManagement.dao.MemoryNotificationDataAccessLayer;
+import com.example.NotificationManagement.dao.EmailNotificationQueueDataAccessLayer;
+import com.example.NotificationManagement.dao.SMSNotificationQueueDataAccessLayer;
 import com.example.NotificationManagement.model.NotificationTemplate;
+import com.example.NotificationManagement.model.QueueTemplate;
 import com.example.NotificationManagement.model.User;
+import com.example.NotificationManagement.service.EmailNotificationQueueService;
 import com.example.NotificationManagement.service.NotificationTemplateService;
+import com.example.NotificationManagement.service.SMSNotificationQueueService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -23,7 +29,7 @@ public class NotificationManagementApplication {
     public static ArrayList<User> users;
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        //Main function of the program
+
         initDefaultData();
         mainMenu();
         SpringApplication.run(NotificationManagementApplication.class, args);
@@ -244,21 +250,29 @@ public class NotificationManagementApplication {
             switch (input) {
                 case 1: {
                     // Call create function
+//                    SMSNotificationQueueController smsNotificationQueueController =
+//                            new SMSNotificationQueueController(new SMSNotificationQueueService(new SMSNotificationQueueDataAccessLayer()));
+//                    smsNotificationQueueController.insertNotificationInQueue(new QueueTemplate("SMS_New","SMS_New","SMS"));
+//
+//                    EmailNotificationQueueController emailNotificationQueueControllerE =
+//                            new EmailNotificationQueueController(new EmailNotificationQueueService(new EmailNotificationQueueDataAccessLayer()));
+//                    emailNotificationQueueControllerE.insertNotificationInQueue(new QueueTemplate("Email_New","Email_New","Email"));
 
-                    NotificationTemplateController notificationTemplateControllerDB
-                            = new NotificationTemplateController(new NotificationTemplateService(new DBNotificationDataAccessLayer()));
-                    notificationTemplateControllerDB.createNotification(new NotificationTemplate(UUID.randomUUID(),
-                            "Hello", "Hello World!", "Spanish", "Email"));
 
-                    NotificationTemplateController notificationTemplateControllerMemory
-                            = new NotificationTemplateController(new NotificationTemplateService(new MemoryNotificationDataAccessLayer()));
-                    notificationTemplateControllerMemory.createNotification(new NotificationTemplate(UUID.randomUUID(),
-                            "Hello", "Hello World!", "Arabic", "Email"));
-                    NotificationTemplateController notificationTemplateControllerMemory2
-                            = new NotificationTemplateController(new NotificationTemplateService(new MemoryNotificationDataAccessLayer()));
-                    notificationTemplateControllerMemory2.createNotification(new NotificationTemplate(UUID.randomUUID(),
-                            "Hello 2", "Hello World! 2", "Arabic 2", "Email 2"));
-                    break;
+//                    NotificationTemplateController notificationTemplateControllerDB
+//                            = new NotificationTemplateController(new NotificationTemplateService(new DBNotificationDataAccessLayer()));
+//                    notificationTemplateControllerDB.createNotification(new NotificationTemplate(UUID.randomUUID(),
+//                            "Hello", "Hello World!", "Spanish", "Email"));
+//
+//                    NotificationTemplateController notificationTemplateControllerMemory
+//                            = new NotificationTemplateController(new NotificationTemplateService(new MemoryNotificationDataAccessLayer()));
+//                    notificationTemplateControllerMemory.createNotification(new NotificationTemplate(UUID.randomUUID(),
+//                            "Hello", "Hello World!", "Arabic", "Email"));
+//                    NotificationTemplateController notificationTemplateControllerMemory2
+//                            = new NotificationTemplateController(new NotificationTemplateService(new MemoryNotificationDataAccessLayer()));
+//                    notificationTemplateControllerMemory2.createNotification(new NotificationTemplate(UUID.randomUUID(),
+//                            "Hello 2", "Hello World! 2", "Arabic 2", "Email 2"));
+                        break;
                 }
                 case 2: {
                     // Call update function

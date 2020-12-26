@@ -17,7 +17,7 @@ public class NotificationTemplateService {
     private final NotificationDataAccessLayer notificationDataAccessLayer;
 
     @Autowired
-    public NotificationTemplateService(@Qualifier("Memory") NotificationDataAccessLayer notificationDataAccessLayer) {
+    public NotificationTemplateService(@Qualifier("DB") NotificationDataAccessLayer notificationDataAccessLayer) {
         this.notificationDataAccessLayer = notificationDataAccessLayer;
     }
 
