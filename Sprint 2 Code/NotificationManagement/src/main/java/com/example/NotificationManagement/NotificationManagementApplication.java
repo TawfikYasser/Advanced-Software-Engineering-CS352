@@ -1,15 +1,27 @@
 package com.example.NotificationManagement;
 
+<<<<<<< HEAD
 import com.example.NotificationManagement.api.EmailNotificationQueueController;
+=======
+import com.example.NotificationManagement.api.NotificationQueueController;
+>>>>>>> 67e7f4bb4ec30a5f697f7cecc73c7f79e28481c1
 import com.example.NotificationManagement.api.NotificationTemplateController;
 import com.example.NotificationManagement.api.SMSNotificationQueueController;
 import com.example.NotificationManagement.dao.DBNotificationDataAccessLayer;
+<<<<<<< HEAD
 import com.example.NotificationManagement.dao.EmailNotificationQueueDataAccessLayer;
+=======
+import com.example.NotificationManagement.dao.MemoryNotificationDataAccessLayer;
+>>>>>>> 67e7f4bb4ec30a5f697f7cecc73c7f79e28481c1
 import com.example.NotificationManagement.dao.SMSNotificationQueueDataAccessLayer;
 import com.example.NotificationManagement.model.NotificationTemplate;
 import com.example.NotificationManagement.model.QueueTemplate;
 import com.example.NotificationManagement.model.User;
+<<<<<<< HEAD
 import com.example.NotificationManagement.service.EmailNotificationQueueService;
+=======
+import com.example.NotificationManagement.service.NotificationQueueService;
+>>>>>>> 67e7f4bb4ec30a5f697f7cecc73c7f79e28481c1
 import com.example.NotificationManagement.service.NotificationTemplateService;
 import com.example.NotificationManagement.service.SMSNotificationQueueService;
 import org.springframework.boot.SpringApplication;
@@ -258,6 +270,13 @@ public class NotificationManagementApplication {
 //                            new EmailNotificationQueueController(new EmailNotificationQueueService(new EmailNotificationQueueDataAccessLayer()));
 //                    emailNotificationQueueControllerE.insertNotificationInQueue(new QueueTemplate("Email_New","Email_New","Email"));
 
+<<<<<<< HEAD
+=======
+                    NotificationQueueController notificationQueueController =
+                            new NotificationQueueController(new NotificationQueueService(new SMSNotificationQueueDataAccessLayer()));
+                    notificationQueueController.insertNotificationInQueue("Google","Goooooogle","SMS");
+
+>>>>>>> 67e7f4bb4ec30a5f697f7cecc73c7f79e28481c1
 
 //                    NotificationTemplateController notificationTemplateControllerDB
 //                            = new NotificationTemplateController(new NotificationTemplateService(new DBNotificationDataAccessLayer()));
