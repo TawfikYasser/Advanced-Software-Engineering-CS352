@@ -1,10 +1,14 @@
 package com.example.NotificationManagement.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class QueueTemplate {
 
     String notificationSubject,notificationContent,notificationType;
 
-    public QueueTemplate(String notificationSubject, String notificationContent, String notificationType) {
+    public QueueTemplate(@JsonProperty("notificationSubject") String notificationSubject,
+                         @JsonProperty("notificationContent") String notificationContent,
+                         @JsonProperty("notificationType") String notificationType) {
         this.notificationSubject = notificationSubject;
         this.notificationContent = notificationContent;
         this.notificationType = notificationType;
