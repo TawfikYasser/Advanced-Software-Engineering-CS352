@@ -5,8 +5,6 @@ import com.example.NotificationManagement.model.NotificationTemplate;
 import com.example.NotificationManagement.model.QueueTemplate;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 
 public interface NotificationQueueDataAccessLayer {
