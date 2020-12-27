@@ -23,5 +23,5 @@ public interface NotificationDataAccessLayer {
 
     int updateNotificationById(UUID id, NotificationTemplate notificationTemplate);
 
-
+    NotificationTemplate getNotificationById(UUID id);
 }

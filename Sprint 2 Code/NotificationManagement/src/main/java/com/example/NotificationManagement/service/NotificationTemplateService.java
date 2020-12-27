@@ -21,25 +21,28 @@ public class NotificationTemplateService {
         this.notificationDataAccessLayer = notificationDataAccessLayer;
     }
 
-    public int createNotification(NotificationTemplate notificationTemplate){
+    public int createNotification(NotificationTemplate notificationTemplate) {
         return notificationDataAccessLayer.createNotification(notificationTemplate);
     }
 
-    public List<NotificationTemplate> getAllNotifications(){
+    public List<NotificationTemplate> getAllNotifications() {
         return notificationDataAccessLayer.selectAllNotifications();
     }
 
-    public Optional<NotificationTemplate> getNotificationById(UUID id){
+    public Optional<NotificationTemplate> selectNotificationById(UUID id) {
         return notificationDataAccessLayer.selectNotificationById(id);
     }
 
+    public NotificationTemplate getNotificationById(UUID id) {
+        return notificationDataAccessLayer.getNotificationById(id);
+    }
 
-    public int deleteNotification(UUID id){
+    public int deleteNotification(UUID id) {
         return notificationDataAccessLayer.deleteNotificationById(id);
     }
 
-    public int updateNotification(UUID id, NotificationTemplate notificationTemplate){
-        return notificationDataAccessLayer.updateNotificationById(id,notificationTemplate);
+    public int updateNotification(UUID id, NotificationTemplate notificationTemplate) {
+        return notificationDataAccessLayer.updateNotificationById(id, notificationTemplate);
     }
 
 }

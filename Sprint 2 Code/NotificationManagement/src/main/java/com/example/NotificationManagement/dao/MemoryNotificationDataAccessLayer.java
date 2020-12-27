@@ -12,16 +12,16 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository("Memory")
-public class MemoryNotificationDataAccessLayer implements NotificationDataAccessLayer{
+public class MemoryNotificationDataAccessLayer implements NotificationDataAccessLayer {
 
 
     private static List<NotificationTemplate> notificationTemplates = new ArrayList<>();
 
     @Override
     public int createNotification(UUID id, NotificationTemplate notificationTemplate) {
-        notificationTemplates.add(new NotificationTemplate(id,notificationTemplate.getTemplateSubject(),
-                notificationTemplate.getTemplateContent(),notificationTemplate.getTemplateLanguage()
-                ,notificationTemplate.getTemplateType()));
+        notificationTemplates.add(new NotificationTemplate(id, notificationTemplate.getTemplateSubject(),
+                notificationTemplate.getTemplateContent(), notificationTemplate.getTemplateLanguage()
+                , notificationTemplate.getTemplateType()));
         return 1;
     }
 
@@ -32,16 +32,21 @@ public class MemoryNotificationDataAccessLayer implements NotificationDataAccess
 
     @Override
     public Optional<NotificationTemplate> selectNotificationById(UUID id) {
+
         return notificationTemplates.stream()
                 .filter(notificationTemplate -> notificationTemplate.getId().equals(id))
                 .findFirst();
     }
 
+    @Override
+    public NotificationTemplate getNotificationById(UUID id) {
+        return null;
+    }
 
     @Override
     public int deleteNotificationById(UUID id) {
         Optional<NotificationTemplate> notificationTemplateMaybe = selectNotificationById(id);
-        if(notificationTemplateMaybe.isEmpty()){
+        if (notificationTemplateMaybe.isEmpty()) {
             return 0;
         }
         notificationTemplates.remove(notificationTemplateMaybe.get());
@@ -54,10 +59,10 @@ public class MemoryNotificationDataAccessLayer implements NotificationDataAccess
         return selectNotificationById(id)
                 .map(notificationTemplate -> {
                     int indexOfNotificationToUpdate = notificationTemplates.indexOf(notificationTemplate);
-                    if(indexOfNotificationToUpdate >= 0){
-                        notificationTemplates.set(indexOfNotificationToUpdate,new NotificationTemplate(id,
-                        notificationTemplateUpdate.getTemplateSubject(),notificationTemplateUpdate.getTemplateContent(),
-                        notificationTemplateUpdate.getTemplateLanguage(),notificationTemplateUpdate.getTemplateType()));
+                    if (indexOfNotificationToUpdate >= 0) {
+                        notificationTemplates.set(indexOfNotificationToUpdate, new NotificationTemplate(id,
+                                notificationTemplateUpdate.getTemplateSubject(), notificationTemplateUpdate.getTemplateContent(),
+                                notificationTemplateUpdate.getTemplateLanguage(), notificationTemplateUpdate.getTemplateType()));
                         return 1;
                     }
                     return 0;
