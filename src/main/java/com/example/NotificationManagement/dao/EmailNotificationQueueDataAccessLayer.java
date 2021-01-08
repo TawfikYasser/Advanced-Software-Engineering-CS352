@@ -13,11 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Repository("QEmail")
+@Repository("QueueEmail")
 public class EmailNotificationQueueDataAccessLayer implements NotificationQueueDataAccessLayer{
 
     @Override
-    public int insertNotificationInQueue(QueueTemplate queueTemplate) {
+    public int insertNotificationInQueue(String subject,String content,String type,String to,String from) {
+        int queryResult =0;
         try{
             Class.forName("com.mysql.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3306/notification_db?useSSL=false";
@@ -28,20 +29,23 @@ public class EmailNotificationQueueDataAccessLayer implements NotificationQueueD
             String query = "";
             connection = DriverManager.getConnection(url, userDB, passwordDB);
             statement = connection.createStatement();
-            query = "INSERT INTO email_queue(n_subject,n_content) VALUES ("
-                    +"'"+queueTemplate.getNotificationSubject()+"',"
-                    +"'"+queueTemplate.getNotificationContent()+"')";
-
-            int queryResult = statement.executeUpdate(query);
+            query = "INSERT INTO notification_email_queue(notification_queue_subject,notification_queue_content,notification_queue_type," +
+                    "notification_queue_to,notification_queue_from) VALUES ("
+                    +"'"+subject+"',"
+                    +"'"+content+"',"
+                    +"'"+type+"',"
+                    +"'"+to+"',"
+                    +"'"+from+"')";
+            queryResult = statement.executeUpdate(query);
             statement.close();
         }catch (Exception e){
             e.printStackTrace();
         }
-        return 1;
+        return queryResult;
     }
 
     @Override
-    public NotificationQueue getNotificationById(int id) {
+    public NotificationQueue getNotificationBySubject(String subject,String type) {
         NotificationQueue notificationQueue = new NotificationQueue();
         try{
             Class.forName("com.mysql.jdbc.Driver");
@@ -54,12 +58,15 @@ public class EmailNotificationQueueDataAccessLayer implements NotificationQueueD
             String query = "";
             connection = DriverManager.getConnection(url, userDB, passwordDB);
             statement = connection.createStatement();
-            query = "SELECT * FROM email_queue WHERE idemail_queue = '"+id+"';";
+            query = "SELECT * FROM notification_email_queue WHERE notification_queue_subject = '"+subject+"';";
             resultSet = statement.executeQuery(query);
             while (resultSet.next()){
-                notificationQueue.setNotificationId(resultSet.getInt("idemail_queue"));
-                notificationQueue.setNotificationSubject(resultSet.getString("n_subject"));
-                notificationQueue.setNotificationContent(resultSet.getString("n_content"));
+                notificationQueue.setNotificationId(resultSet.getInt("notification_queue_id"));
+                notificationQueue.setNotificationSubject(resultSet.getString("notification_queue_subject"));
+                notificationQueue.setNotificationContent(resultSet.getString("notification_queue_content"));
+                notificationQueue.setNotificationType(resultSet.getString("notification_queue_type"));
+                notificationQueue.setNotificationTo(resultSet.getString("notification_queue_to"));
+                notificationQueue.setNotificationFrom(resultSet.getString("notification_queue_from"));
             }
             statement.close();
         }catch (Exception e){
@@ -81,17 +88,45 @@ public class EmailNotificationQueueDataAccessLayer implements NotificationQueueD
             String query = "";
             connection = DriverManager.getConnection(url, userDB, passwordDB);
             statement = connection.createStatement();
-            query = "SELECT * FROM email_queue;";
+            query = "SELECT * FROM notification_email_queue;";
             ResultSet resultSet1 = null;
             resultSet1 = statement.executeQuery(query);
             while (resultSet1.next()){
-                notificationQueueList.add(new NotificationQueue(resultSet1.getInt("idemail_queue"),
-                        resultSet1.getString("n_subject"),resultSet1.getString("n_content")));
+                notificationQueueList.add(new NotificationQueue(resultSet1.getInt("notification_queue_id"),
+                        resultSet1.getString("notification_queue_subject")
+                        ,resultSet1.getString("notification_queue_content")
+                        ,resultSet1.getString("notification_queue_type")
+                        ,resultSet1.getString("notification_queue_to")
+                        ,resultSet1.getString("notification_queue_from")));
             }
             statement.close();
         }catch (Exception e){
             e.printStackTrace();
         }
         return notificationQueueList;
+    }
+
+    @Override
+    public int deleteNotificationFromQueue(String subject,String type) {
+        int result = 0;
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3306/notification_db?useSSL=false";
+            String userDB = "root";
+            String passwordDB = "troot";
+            Connection connection = null;
+            Statement statement = null;
+            ResultSet resultSet = null;
+            String query = "";
+            connection = DriverManager.getConnection(url, userDB, passwordDB);
+            statement = connection.createStatement();
+            query = "DELETE FROM notification_email_queue WHERE ( notification_queue_subject = '"+subject+"');";
+            result = statement.executeUpdate(query);
+
+            statement.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
     }
 }

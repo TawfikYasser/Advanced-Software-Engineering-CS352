@@ -8,11 +8,11 @@ import java.util.UUID;
 
 public interface NotificationDataAccessLayer {
 
-    int createNotification(UUID id, NotificationTemplate notificationTemplate);
+    NotificationTemplate createNotification(UUID id, String subject,String content,String language,String type);
 
-    default int createNotification(NotificationTemplate notificationTemplate){
+    default NotificationTemplate createNotification(String subject,String content,String language,String type){
         UUID id = UUID.randomUUID();
-        return createNotification(id,notificationTemplate);
+        return createNotification(id,  subject, content, language, type);
     }
 
     List<NotificationTemplate> selectAllNotifications();
@@ -21,7 +21,7 @@ public interface NotificationDataAccessLayer {
 
     int deleteNotificationById(UUID id);
 
-    int updateNotificationById(UUID id, NotificationTemplate notificationTemplate);
+    int updateNotificationById(UUID id, String subject,String content,String language,String type);
 
     NotificationTemplate getNotificationById(UUID id);
 }

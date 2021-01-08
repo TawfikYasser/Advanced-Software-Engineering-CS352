@@ -18,11 +18,12 @@ public class MemoryNotificationDataAccessLayer implements NotificationDataAccess
     private static List<NotificationTemplate> notificationTemplates = new ArrayList<>();
 
     @Override
-    public int createNotification(UUID id, NotificationTemplate notificationTemplate) {
-        notificationTemplates.add(new NotificationTemplate(id, notificationTemplate.getTemplateSubject(),
-                notificationTemplate.getTemplateContent(), notificationTemplate.getTemplateLanguage()
-                , notificationTemplate.getTemplateType()));
-        return 1;
+    public NotificationTemplate createNotification(UUID id,  String subject,String content,String language,String type) {
+        NotificationTemplate notificationTemplate = new NotificationTemplate(id, subject,
+                content, language
+                , type);
+        notificationTemplates.add(notificationTemplate);
+        return notificationTemplate ;
     }
 
     @Override
@@ -54,15 +55,15 @@ public class MemoryNotificationDataAccessLayer implements NotificationDataAccess
     }
 
     @Override
-    public int updateNotificationById(UUID id, NotificationTemplate notificationTemplateUpdate) {
+    public int updateNotificationById(UUID id, String subject,String content,String language,String type) {
 
         return selectNotificationById(id)
                 .map(notificationTemplate -> {
                     int indexOfNotificationToUpdate = notificationTemplates.indexOf(notificationTemplate);
                     if (indexOfNotificationToUpdate >= 0) {
                         notificationTemplates.set(indexOfNotificationToUpdate, new NotificationTemplate(id,
-                                notificationTemplateUpdate.getTemplateSubject(), notificationTemplateUpdate.getTemplateContent(),
-                                notificationTemplateUpdate.getTemplateLanguage(), notificationTemplateUpdate.getTemplateType()));
+                                subject,content,
+                                language,type));
                         return 1;
                     }
                     return 0;

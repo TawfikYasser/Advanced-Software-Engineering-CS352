@@ -10,10 +10,12 @@ import java.util.List;
 public interface NotificationQueueDataAccessLayer {
 
 
-    int insertNotificationInQueue(QueueTemplate queueTemplate);
+    int insertNotificationInQueue(String subject,String content,String type,String to,String from);
 
-    NotificationQueue getNotificationById(int id);
+    NotificationQueue getNotificationBySubject(String subject,String type);
 
     List<NotificationQueue> getAllNotifications();
+
+    int deleteNotificationFromQueue(String subject,String type);
 
 }

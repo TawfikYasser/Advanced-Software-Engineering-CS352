@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/api/nq/sms")
 @RestController
 public class SMSNotificationQueueController {
     private final SMSNotificationQueueService smsNotificationQueueService;
@@ -19,20 +18,27 @@ public class SMSNotificationQueueController {
         this.smsNotificationQueueService = smsNotificationQueueService;
     }
 
-    @PostMapping
-    public void insertNotificationInQueue(@RequestBody QueueTemplate queueTemplate) {
-        smsNotificationQueueService.insertNotificationInQueue(queueTemplate);
+    @GetMapping("/nq/sms/enqueue")
+    public int insertNotificationInQueue(@RequestParam String subject,@RequestParam String content,@RequestParam String type,@RequestParam String to,@RequestParam String from) {
+        return smsNotificationQueueService.insertNotificationInQueue( subject, content, type, to, from);
     }
 
-    @GetMapping(path = "{id}")
-    public NotificationQueue getNotificationById(@PathVariable("id")  int id) {
-        return smsNotificationQueueService.getNotificationById(id);
+    @GetMapping("/nq/sms/dequeue")
+    @ResponseBody
+    public NotificationQueue getNotificationBySubject(@RequestParam String subject,@RequestParam String type) {
+        return smsNotificationQueueService.getNotificationBySubject(subject,type);
     }
 
-    @GetMapping
+    @GetMapping("/nq/sms/dequeueAll")
+    @ResponseBody
     public List<NotificationQueue> getAllNotifications() {
         return smsNotificationQueueService.getAllNotifications();
     }
 
+
+    @GetMapping("/nq/sms/delete")
+    public int deleteNotificationFromQueue(@RequestParam String subject,@RequestParam String type) {
+        return smsNotificationQueueService.deleteNotificationFromQueue(subject,type);
+    }
 
 }

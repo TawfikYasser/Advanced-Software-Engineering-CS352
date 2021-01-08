@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
-@RequestMapping("/api/nq/email")
 @RestController
 public class EmailNotificationQueueController {
 
@@ -19,19 +19,26 @@ public class EmailNotificationQueueController {
         this.emailNotificationQueueService = emailNotificationQueueService;
     }
 
-    @PostMapping
-    public void insertNotificationInQueue(@RequestBody QueueTemplate queueTemplate) {
-        emailNotificationQueueService.insertNotificationInQueue(queueTemplate);
+    @GetMapping("/nq/email/enqueue")
+    public int insertNotificationInQueue(@RequestParam String subject,@RequestParam String content,@RequestParam String type,@RequestParam String to,@RequestParam String from) {
+        return emailNotificationQueueService.insertNotificationInQueue( subject, content, type, to, from);
     }
 
-    @GetMapping(path = "{id}")
-    public NotificationQueue getNotificationById(@PathVariable("id")  int id) {
-        return emailNotificationQueueService.getNotificationById(id);
+    @GetMapping("/nq/email/dequeue")
+    @ResponseBody
+    public NotificationQueue getNotificationBySubject(@RequestParam String subject,@RequestParam String type) {
+        return emailNotificationQueueService.getNotificationBySubject(subject,type);
     }
 
-    @GetMapping
+    @GetMapping("/nq/email/dequeueAll")
+    @ResponseBody
     public List<NotificationQueue> getAllNotifications() {
         return emailNotificationQueueService.getAllNotifications();
+    }
+
+    @GetMapping("/nq/email/delete")
+    public int deleteNotificationFromQueue(@RequestParam String subject,@RequestParam String type) {
+        return emailNotificationQueueService.deleteNotificationFromQueue(subject,type);
     }
 
 

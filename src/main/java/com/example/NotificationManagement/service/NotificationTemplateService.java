@@ -21,8 +21,8 @@ public class NotificationTemplateService {
         this.notificationDataAccessLayer = notificationDataAccessLayer;
     }
 
-    public int createNotification(NotificationTemplate notificationTemplate) {
-        return notificationDataAccessLayer.createNotification(notificationTemplate);
+    public NotificationTemplate createNotification( String subject,String content,String language,String type) {
+        return notificationDataAccessLayer.createNotification(  subject, content, language, type);
     }
 
     public List<NotificationTemplate> getAllNotifications() {
@@ -41,8 +41,8 @@ public class NotificationTemplateService {
         return notificationDataAccessLayer.deleteNotificationById(id);
     }
 
-    public int updateNotification(UUID id, NotificationTemplate notificationTemplate) {
-        return notificationDataAccessLayer.updateNotificationById(id, notificationTemplate);
+    public int updateNotification(UUID id, String subject,String content,String language,String type) {
+        return notificationDataAccessLayer.updateNotificationById(id,  subject, content, language, type);
     }
 
 }

@@ -19,20 +19,24 @@ public class EmailNotificationQueueService {
     private final NotificationQueueDataAccessLayer notificationQueueDataAccessLayer;
 
     @Autowired
-    public EmailNotificationQueueService(@Qualifier("QEmail") NotificationQueueDataAccessLayer notificationQueueDataAccessLayer) {
+    public EmailNotificationQueueService(@Qualifier("QueueEmail") NotificationQueueDataAccessLayer notificationQueueDataAccessLayer) {
         this.notificationQueueDataAccessLayer = notificationQueueDataAccessLayer;
     }
 
-    public int insertNotificationInQueue(QueueTemplate queueTemplate){
-        return notificationQueueDataAccessLayer.insertNotificationInQueue(queueTemplate);
+    public int insertNotificationInQueue(String subject,String content,String type,String to,String from){
+        return notificationQueueDataAccessLayer.insertNotificationInQueue( subject, content, type, to, from);
     }
 
-    public NotificationQueue getNotificationById(int id){
-        return notificationQueueDataAccessLayer.getNotificationById(id);
+    public NotificationQueue getNotificationBySubject(String subject,String type){
+        return notificationQueueDataAccessLayer.getNotificationBySubject(subject,type);
     }
 
     public List<NotificationQueue> getAllNotifications(){
         return notificationQueueDataAccessLayer.getAllNotifications();
+    }
+
+    public int deleteNotificationFromQueue(String subject,String type){
+        return notificationQueueDataAccessLayer.deleteNotificationFromQueue(subject,type);
     }
 
 }

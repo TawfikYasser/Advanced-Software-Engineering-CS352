@@ -21,7 +21,9 @@ public class DBNotificationDataAccessLayer implements NotificationDataAccessLaye
 
 
     @Override
-    public int createNotification(UUID id, NotificationTemplate notificationTemplate) {
+    public NotificationTemplate createNotification(UUID id,  String subject,String content,String language,String type) {
+        int queryResult=0;
+        NotificationTemplate notificationTemplate = new NotificationTemplate();
         try {
             Class.forName("com.mysql.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3306/notification_db?useSSL=false";
@@ -35,16 +37,17 @@ public class DBNotificationDataAccessLayer implements NotificationDataAccessLaye
             query = "INSERT INTO notification(Notification_Id,Notification_Subject,Notification_Content," +
                     "Notification_Language,Notification_Type) VALUES ("
                     + "'" + id + "',"
-                    + "'" + notificationTemplate.getTemplateSubject() + "',"
-                    + "'" + notificationTemplate.getTemplateContent() + "',"
-                    + "'" + notificationTemplate.getTemplateLanguage() + "',"
-                    + "'" + notificationTemplate.getTemplateType() + "')";
-            int queryResult = statement.executeUpdate(query);
+                    + "'" + subject + "',"
+                    + "'" + content + "',"
+                    + "'" + language + "',"
+                    + "'" + type + "')";
+            queryResult = statement.executeUpdate(query);
+            notificationTemplate = new NotificationTemplate(id,subject,content,language,type);
             statement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return 1;
+        return notificationTemplate;
     }
 
     @Override
@@ -113,6 +116,7 @@ public class DBNotificationDataAccessLayer implements NotificationDataAccessLaye
 
     @Override
     public int deleteNotificationById(UUID id) {
+        int queryResult=0;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3306/notification_db?useSSL=false";
@@ -124,16 +128,17 @@ public class DBNotificationDataAccessLayer implements NotificationDataAccessLaye
             connection = DriverManager.getConnection(url, userDB, passwordDB);
             statement = connection.createStatement();
             query = "DELETE FROM notification WHERE ( Notification_Id = '" + String.valueOf(id) + "');";
-            int queryResult = statement.executeUpdate(query);
+            queryResult = statement.executeUpdate(query);
             statement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return 1;
+        return queryResult;
     }
 
     @Override
-    public int updateNotificationById(UUID id, NotificationTemplate notificationTemplate) {
+    public int updateNotificationById(UUID id,String subject,String content,String language,String type) {
+        int queryResult = 0;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3306/notification_db?useSSL=false";
@@ -145,16 +150,16 @@ public class DBNotificationDataAccessLayer implements NotificationDataAccessLaye
             connection = DriverManager.getConnection(url, userDB, passwordDB);
             statement = connection.createStatement();
             query = "UPDATE notification SET Notification_Subject = '"
-                    + notificationTemplate.getTemplateSubject() + "', Notification_Content = '"
-                    + notificationTemplate.getTemplateContent() + "', Notification_Language = '"
-                    + notificationTemplate.getTemplateLanguage() + "', Notification_Type = '"
-                    + notificationTemplate.getTemplateType() +
+                    + subject + "', Notification_Content = '"
+                    + content + "', Notification_Language = '"
+                    + language + "', Notification_Type = '"
+                    + type +
                     "' WHERE ( Notification_Id = '" + String.valueOf(id) + "');";
-            int queryResult = statement.executeUpdate(query);
+            queryResult = statement.executeUpdate(query);
             statement.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return 1;
+        return queryResult;
     }
 }

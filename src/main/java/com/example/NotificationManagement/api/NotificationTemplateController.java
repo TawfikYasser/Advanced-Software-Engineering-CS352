@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("/api/nt")
+
 @RestController
 public class NotificationTemplateController {
     private final NotificationTemplateService notificationTemplateService;
@@ -18,12 +18,13 @@ public class NotificationTemplateController {
         this.notificationTemplateService = notificationTemplateService;
     }
 
-    @PostMapping
-    public void createNotification(@RequestBody NotificationTemplate notificationTemplate) {
-        notificationTemplateService.createNotification(notificationTemplate);
+    @GetMapping("/nt/createNotification")
+    public NotificationTemplate createNotification(@RequestParam String subject,@RequestParam String content,@RequestParam String language,@RequestParam String type ) {
+        return notificationTemplateService.createNotification(  subject, content, language, type);
     }
 
-    @GetMapping
+    @GetMapping("/nt/getAllNotifications")
+    @ResponseBody
     public List<NotificationTemplate> getAllNotifications() {
         return notificationTemplateService.getAllNotifications();
     }
@@ -32,20 +33,21 @@ public class NotificationTemplateController {
         return notificationTemplateService.selectNotificationById(id).orElse(null);
     }
 
-    @GetMapping(path = "{id}")
-    public NotificationTemplate getNotificationById(@PathVariable("id") UUID id) {
+    @GetMapping("/nt/getNotificationById")
+    @ResponseBody
+    public NotificationTemplate getNotificationById(@RequestParam UUID id) {
         return notificationTemplateService.getNotificationById(id);
     }
 
-    @DeleteMapping(path = "{id}")
-    public void deleteNotificationById(@PathVariable("id") UUID id) {
-        notificationTemplateService.deleteNotification(id);
+    @GetMapping("/nt/deleteNotificationById")
+    public int deleteNotificationById(@RequestParam UUID id) {
+        return notificationTemplateService.deleteNotification(id);
     }
 
 
-    @PutMapping(path = "{id}")
-    public void updateNotification(@PathVariable("id") UUID id, @RequestBody NotificationTemplate notificationTemplateToUpdate) {
-        notificationTemplateService.updateNotification(id, notificationTemplateToUpdate);
+    @GetMapping("/nt/updateNotification")
+    public int updateNotification(@RequestParam UUID id, @RequestParam String subject,@RequestParam String content,@RequestParam String language,@RequestParam String type) {
+        return notificationTemplateService.updateNotification(id,subject, content,language,type);
     }
 
 
