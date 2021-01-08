@@ -40,3 +40,21 @@ You also may want to log the status ( success / failure ) of these handled deque
 ###### Important Links
 * Trello link: https://trello.com/b/1jrTjl7a/advanced-swe
 * Creately link: https://app.creately.com/diagram/bxT0yfC2CbO/edit
+
+###### API URLs
+
+* http://localhost:8080/nt/createNotification
+* http://localhost:8080/nt/getAllNotifications
+* http://localhost:8080/nt/getNotificationById
+* http://localhost:8080/nt/deleteNotificationById
+* http://localhost:8080/nt/updateNotification
+
+* http://localhost:8080/nq/email/enqueue
+* http://localhost:8080/nq/email/dequeue
+* http://localhost:8080/nq/email/dequeueAll
+* http://localhost:8080/nq/email/delete
+
+* http://localhost:8080/nq/sms/enqueue
+* http://localhost:8080/nq/sms/dequeue
+* http://localhost:8080/nq/sms/dequeueAll
+* http://localhost:8080/nq/sms/delete
