@@ -123,6 +123,8 @@ public class NotificationManagementApplication {
                     new EmailNotificationQueueController(new EmailNotificationQueueService(new EmailNotificationQueueDataAccessLayer()));
             emailNotificationQueueController.insertNotificationInQueue(subject,content,"Email",currentEmail,"sprint3@gmail.com");
 
+            System.out.println("Notification queued : "+subject);
+
             //Dequeueing te notification
             NotificationQueue notificationQueue  = new NotificationQueue();
             notificationQueue = emailNotificationQueueController.getNotificationBySubject(subject,"Email");
@@ -217,6 +219,8 @@ public class NotificationManagementApplication {
                                 new EmailNotificationQueueController(new EmailNotificationQueueService(new EmailNotificationQueueDataAccessLayer()));
                         emailNotificationQueueController.insertNotificationInQueue(subject,content,"Email",email,"sprint3@gmail.com");
 
+                        System.out.println("Notification queued : "+subject);
+
                         //Dequeueing te notification
                         NotificationQueue notificationQueue  = new NotificationQueue();
                         notificationQueue = emailNotificationQueueController.getNotificationBySubject(subject,"Email");
@@ -272,6 +276,8 @@ public class NotificationManagementApplication {
         EmailNotificationQueueController emailNotificationQueueController =
                 new EmailNotificationQueueController(new EmailNotificationQueueService(new EmailNotificationQueueDataAccessLayer()));
         emailNotificationQueueController.insertNotificationInQueue(subject,content,"Email",to,"sprint3@gmail.com");
+
+        System.out.println("Notification queued : "+subject);
 
         //Dequeueing te notification
         NotificationQueue notificationQueue  = new NotificationQueue();
@@ -335,6 +341,8 @@ public class NotificationManagementApplication {
                             new EmailNotificationQueueController(new EmailNotificationQueueService(new EmailNotificationQueueDataAccessLayer()));
                     emailNotificationQueueController1.insertNotificationInQueue(bookSubject,bookContent,"Email",to,"sprint3@gmail.com");
 
+                    System.out.println("Notification queued : "+subject);
+
                     //Dequeueing te notification
                     NotificationQueue notificationQueue1  = new NotificationQueue();
                     notificationQueue1 = emailNotificationQueueController.getNotificationBySubject(bookSubject,"Email");
@@ -386,6 +394,8 @@ public class NotificationManagementApplication {
                             new SMSNotificationQueueController(new SMSNotificationQueueService(new SMSNotificationQueueDataAccessLayer()));
                     smsNotificationQueueController.insertNotificationInQueue(bookSubject,bookContent,"SMS",user.getPhone(),"01111111111");
 
+                    System.out.println("Notification queued : "+subject);
+
                     //Dequeueing te notification
                     NotificationQueue notificationQueue1  = new NotificationQueue();
                     notificationQueue1 = smsNotificationQueueController.getNotificationBySubject(bookSubject,"SMS");
@@ -414,6 +424,7 @@ public class NotificationManagementApplication {
                             new SMSNotificationQueueController(new SMSNotificationQueueService(new SMSNotificationQueueDataAccessLayer()));
                     smsNotificationQueueController.insertNotificationInQueue(bookSubject,bookContent,"SMS",user.getPhone(),"01111111111");
 
+                    System.out.println("Notification queued : "+subject);
 
                     //Dequeueing te notification
                     NotificationQueue notificationQueue1  = new NotificationQueue();
@@ -441,7 +452,7 @@ public class NotificationManagementApplication {
 
     }
 
-    //Function to send mail using java mail
+    //Function to send actual mail using java mail
     public void sendEmail() {
 
         SimpleMailMessage msg = new SimpleMailMessage();
