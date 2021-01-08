@@ -30,6 +30,12 @@ When your "notifications module" gets invoked to send a "notification" to an ema
 
 This part would be the responsible of actual de-queue-ing from the "ready-to-send notifications queue", and send "handle/send" it , as well as handling  the unsuccessfully sent notifications.
 
+# Sprint 3 -> Dequeuing notifications
+
+Develop a console application to de-queue from queues and actually send those notifications.
+We won't ask you to actually use a library/3rd-party mail-gatway/SMS-gateway, to send emails or SMS, but you ARE required to MOCK these gateways. ---meaning--> you can replace your mocking, with actual gateway that sends emails or SMS, WITHOUT affecting the rest of the module, nor the way the rest of the module is interacting with this specific part. 
+You also may want to log the status ( success / failure ) of these handled dequeued notifications
+
 
 ###### Important Links
 * Trello link: https://trello.com/b/1jrTjl7a/advanced-swe
