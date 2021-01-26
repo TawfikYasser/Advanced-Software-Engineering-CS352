@@ -41,7 +41,7 @@ You also may want to log the status ( success / failure ) of these handled deque
 * Trello link: https://trello.com/b/1jrTjl7a/advanced-swe
 * Creately link: https://app.creately.com/diagram/bxT0yfC2CbO/edit
 
-###### API URLs
+###### API Endpoints
 
 * http://localhost:8080/nt/createNotification
 * http://localhost:8080/nt/getAllNotifications
